@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 using PlayerFeedbackService.Domain;
@@ -16,34 +18,41 @@ namespace PlayerFeedbackService.Service
             _logger = logger;
         }
 
-        public Result Send(PlayerFeedbackDto feedback)
+        private async Task Send(PlayerFeedback feedback)
         {
             try
             {
-                var feedbackValidation =
-                    PlayerFeedback.Create(
-                        feedback.SessionId,
-                        feedback.PlayerId,
-                        feedback.Rating,
-                        feedback.Comment,
-                        feedback.Timestamp
-                    );
-
-                if (feedbackValidation.IsOk)
-                {
-                    _playerFeedbackRepository.Store(feedbackValidation.Value);
-
-                    return Result.Ok();
-                }
-
-                return Result.Fail(feedbackValidation.Error);
+                await _playerFeedbackRepository.Store(feedback);
             }
             catch (DuplicateFeedbackException ex)
             {
                 _logger.LogWarning(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Unexpected error", ex);
+            }
+        }
+
+        public Result Send(PlayerFeedbackDto feedback)
+        {
+            var feedbackValidation =
+                PlayerFeedback.Create(
+                    feedback.SessionId,
+                    feedback.PlayerId,
+                    feedback.Rating,
+                    feedback.Comment,
+                    feedback.Timestamp
+                );
+
+            if (feedbackValidation.IsOk)
+            {
+                Send(feedbackValidation.Value); // fire and forget
 
                 return Result.Ok();
             }
+
+            return Result.Fail(feedbackValidation.Error);
         }
     }
 }

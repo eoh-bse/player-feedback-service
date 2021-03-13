@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerFeedbackService.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerFeedbackService.Domain.Tests", "src\PlayerFeedbackService.Domain.Tests\PlayerFeedbackService.Domain.Tests.csproj", "{B73EF773-60A9-4366-B80D-BA7221EE79BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerFeedbackService.Service.Tests", "src\PlayerFeedbackService.Service.Tests\PlayerFeedbackService.Service.Tests.csproj", "{6499E156-F891-43F6-8E05-A020EBFA641C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,18 @@ Global
 		{B73EF773-60A9-4366-B80D-BA7221EE79BB}.Release|x64.Build.0 = Release|Any CPU
 		{B73EF773-60A9-4366-B80D-BA7221EE79BB}.Release|x86.ActiveCfg = Release|Any CPU
 		{B73EF773-60A9-4366-B80D-BA7221EE79BB}.Release|x86.Build.0 = Release|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Debug|x64.Build.0 = Debug|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Debug|x86.Build.0 = Debug|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Release|x64.ActiveCfg = Release|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Release|x64.Build.0 = Release|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Release|x86.ActiveCfg = Release|Any CPU
+		{6499E156-F891-43F6-8E05-A020EBFA641C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CC1A8A4D-6017-47BC-A109-EFB0C4F9E28B} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
@@ -95,5 +109,6 @@ Global
 		{BF1F6973-F64C-4224-99AE-37DC607CB579} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
 		{4ACE161D-27AE-4476-BB7A-1E8CAD31A3E5} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
 		{B73EF773-60A9-4366-B80D-BA7221EE79BB} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
+		{6499E156-F891-43F6-8E05-A020EBFA641C} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
 	EndGlobalSection
 EndGlobal
