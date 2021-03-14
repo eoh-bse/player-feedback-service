@@ -11,7 +11,8 @@
   <ItemGroup>
     <ProjectReference Include="../PlayerFeedbackService.Service/PlayerFeedbackService.Service.csproj" />
     <ProjectReference Include="../PlayerFeedbackService.Domain/PlayerFeedbackService.Domain.csproj" />
-    <ProjectReference Include="..\PlayerFeedbackService.DataAccess\PlayerFeedbackService.DataAccess.csproj" />
+    <ProjectReference Include="../PlayerFeedbackService.DataAccess/PlayerFeedbackService.DataAccess.csproj" />
+    <ProjectReference Include="../PlayerFeedbackService.Infrastructure/PlayerFeedbackService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

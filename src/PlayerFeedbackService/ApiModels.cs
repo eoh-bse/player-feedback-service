@@ -30,18 +30,20 @@ namespace PlayerFeedbackService
         public Guid PlayerId { get; }
         public int Rating { get; }
         public string Comment { get; }
+        public DateTime Timestamp { get; }
 
-        public PlayerFeedbackResponse(Guid sessionId, Guid playerId, int rating, string comment)
+        public PlayerFeedbackResponse(Guid sessionId, Guid playerId, int rating, string comment, DateTime timestamp)
         {
             SessionId = sessionId;
             PlayerId = playerId;
             Rating = rating;
             Comment = comment;
+            Timestamp = timestamp;
         }
 
         public static PlayerFeedbackResponse CreateFromDto(PlayerFeedbackDto dto)
         {
-            return new(dto.SessionId, dto.PlayerId, dto.Rating, dto.Comment);
+            return new(dto.SessionId, dto.PlayerId, dto.Rating, dto.Comment, dto.Timestamp);
         }
     }
 }

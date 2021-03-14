@@ -6,6 +6,6 @@ namespace PlayerFeedbackService.Service.Abstractions
 {
     public interface IFeedbackSender
     {
-        Result Send(PlayerFeedbackDto feedback);
+        Task<Result> Send(PlayerFeedbackDto feedback);
     }
 }

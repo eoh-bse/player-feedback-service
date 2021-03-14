@@ -7,6 +7,6 @@ namespace PlayerFeedbackService.Service.Abstractions
 {
     public interface IQueryHandler
     {
-        Task<Result<IEnumerable<PlayerFeedbackDto>>> GetLatestFeedBack(RawFilter filter);
+        Task<Result<IReadOnlyCollection<PlayerFeedbackDto>>> GetLatestFeedBack(RawFilter filter);
     }
 }

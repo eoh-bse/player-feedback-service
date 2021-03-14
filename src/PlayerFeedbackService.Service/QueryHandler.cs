@@ -16,7 +16,7 @@ namespace PlayerFeedbackService.Service
             _playerFeedback = playerFeedback;
         }
 
-        public async Task<Result<IEnumerable<PlayerFeedbackDto>>> GetLatestFeedBack(RawFilter filter)
+        public async Task<Result<IReadOnlyCollection<PlayerFeedbackDto>>> GetLatestFeedBack(RawFilter filter)
         {
             var filterValidation = QueryFilter.CreateFrom(filter);
 
@@ -27,7 +27,7 @@ namespace PlayerFeedbackService.Service
                 return Result.Ok(feedbacks);
             }
 
-            return Result.Fail<IEnumerable<PlayerFeedbackDto>>(filterValidation.Error);
+            return Result.Fail<IReadOnlyCollection<PlayerFeedbackDto>>(filterValidation.Error);
         }
     }
 }

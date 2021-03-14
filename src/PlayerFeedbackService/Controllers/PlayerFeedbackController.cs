@@ -47,11 +47,11 @@ namespace PlayerFeedbackService.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] PlayerFeedBackRequest feedback)
+        public async Task<IActionResult> Post([FromBody] PlayerFeedBackRequest feedback)
         {
             var utcTimeNow = _clock.GetTimeNow();
 
-            var feedbackSendingResult = _feedbackSender.Send(feedback.ToDto(utcTimeNow));
+            var feedbackSendingResult = await _feedbackSender.Send(feedback.ToDto(utcTimeNow));
 
             if (feedbackSendingResult.IsOk)
             {

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Xunit;
 using Moq;
@@ -36,7 +37,7 @@ namespace PlayerFeedbackService.Service.Tests
             }
 
             [Fact]
-            public void ReturnOk_WhenValidPlayerFeedbackIsGiven()
+            public async Task ReturnOk_WhenValidPlayerFeedbackIsGiven()
             {
                 var playerFeedback = new PlayerFeedback
                 {
@@ -49,7 +50,7 @@ namespace PlayerFeedbackService.Service.Tests
 
                 var feedbackSender = new FeedbackSender(_mockFeedbackRepository.Object, _mockLogger.Object);
 
-                var result = feedbackSender.Send(_playerFeedback);
+                var result = await feedbackSender.Send(_playerFeedback);
 
                 _mockFeedbackRepository.Verify(repo => repo.Store(playerFeedback));
 
@@ -57,13 +58,13 @@ namespace PlayerFeedbackService.Service.Tests
             }
 
             [Fact]
-            public void ReturnError_WhenInvalidPlayerFeedbackIsGiven()
+            public async Task ReturnError_WhenInvalidPlayerFeedbackIsGiven()
             {
                 var invalidFeedback = _playerFeedback with { Rating = 7 };
 
                 var feedbackSender = new FeedbackSender(_mockFeedbackRepository.Object, _mockLogger.Object);
 
-                var result = feedbackSender.Send(invalidFeedback);
+                var result = await feedbackSender.Send(invalidFeedback);
 
                 Assert.True(result.IsError);
             }

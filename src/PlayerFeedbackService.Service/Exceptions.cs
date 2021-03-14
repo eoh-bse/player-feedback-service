@@ -15,4 +15,9 @@ namespace PlayerFeedbackService.Service
             return new DuplicateFeedbackException(message);
         }
     }
+
+    public class UnexpectedFeedbackInsertionException : Exception
+    {
+        public UnexpectedFeedbackInsertionException(string message, Exception innerEx) : base(message, innerEx) {}
+    }
 }

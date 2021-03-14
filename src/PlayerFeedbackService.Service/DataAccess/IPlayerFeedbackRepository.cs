@@ -7,7 +7,7 @@ namespace PlayerFeedbackService.Service.DataAccess
 {
     public interface IPlayerFeedbackRepository
     {
-        Task<IEnumerable<PlayerFeedbackDto>> GetLatestBy(QueryFilter filter);
+        Task<IReadOnlyCollection<PlayerFeedbackDto>> GetLatestBy(QueryFilter filter);
         Task Store(PlayerFeedback feedback);
     }
 }
