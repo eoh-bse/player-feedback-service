@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using PlayerFeedbackService.Domain;
 
-namespace PlayerFeedbackService.Service
+namespace PlayerFeedbackService.Service.Abstractions
 {
     public interface IQueryHandler
     {

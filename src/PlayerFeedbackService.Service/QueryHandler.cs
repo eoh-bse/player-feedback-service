@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using PlayerFeedbackService.Domain;
+using PlayerFeedbackService.Service.Abstractions;
 using PlayerFeedbackService.Service.DataAccess;
 
 namespace PlayerFeedbackService.Service

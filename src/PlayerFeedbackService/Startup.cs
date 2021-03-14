@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 using PlayerFeedbackService.Service;
+using PlayerFeedbackService.Service.Abstractions;
 using PlayerFeedbackService.Service.DataAccess;
 using PlayerFeedbackService.DataAccess;
 
@@ -23,6 +24,7 @@ namespace PlayerFeedbackService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IClock, Clock>();
             services.AddTransient<IPlayerFeedbackRepository, PlayerFeedbackRepository>();
             services.AddTransient<IQueryHandler, QueryHandler>();
             services.AddTransient<IFeedbackSender, FeedbackSender>();

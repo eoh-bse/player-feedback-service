@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using PlayerFeedbackService.Service;
+using PlayerFeedbackService.Service.Abstractions;
 
 namespace PlayerFeedbackService.Controllers
 {
@@ -14,16 +15,19 @@ namespace PlayerFeedbackService.Controllers
     {
         private readonly IQueryHandler _queryHandler;
         private readonly IFeedbackSender _feedbackSender;
+        private readonly IClock _clock;
         private readonly ILogger<PlayerFeedbackController> _logger;
 
         public PlayerFeedbackController(
             IQueryHandler queryHandler,
             IFeedbackSender feedbackSender,
+            IClock clock,
             ILogger<PlayerFeedbackController> logger
         )
         {
             _queryHandler = queryHandler;
             _feedbackSender = feedbackSender;
+            _clock = clock;
             _logger = logger;
         }
 
@@ -45,7 +49,9 @@ namespace PlayerFeedbackService.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] PlayerFeedBackRequest feedback)
         {
-            var feedbackSendingResult = _feedbackSender.Send(feedback.ToDto());
+            var utcTimeNow = _clock.GetTimeNow();
+
+            var feedbackSendingResult = _feedbackSender.Send(feedback.ToDto(utcTimeNow));
 
             if (feedbackSendingResult.IsOk)
             {

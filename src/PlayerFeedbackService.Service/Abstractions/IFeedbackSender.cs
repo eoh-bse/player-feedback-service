@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 using PlayerFeedbackService.Domain;
 
-namespace PlayerFeedbackService.Service
+namespace PlayerFeedbackService.Service.Abstractions
 {
     public interface IFeedbackSender
     {

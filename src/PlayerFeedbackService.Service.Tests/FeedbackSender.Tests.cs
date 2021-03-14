@@ -4,7 +4,6 @@ using Xunit;
 using Moq;
 
 using PlayerFeedbackService.Domain;
-using PlayerFeedbackService.Service;
 using PlayerFeedbackService.Service.DataAccess;
 
 namespace PlayerFeedbackService.Service.Tests
