@@ -1,23 +1,22 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+using Confluent.Kafka;
 using Xunit;
 using Moq;
 
 using PlayerFeedbackService.Domain;
-using PlayerFeedbackService.Service.DataAccess;
+using PlayerFeedbackService.Service.MessageBroker;
+using PlayerFeedbackService.Service.MessageBroker.Messages;
 
 namespace PlayerFeedbackService.Service.Tests
 {
     public class FeedbackSenderTests
     {
-        private readonly Mock<IPlayerFeedbackRepository> _mockFeedbackRepository;
-        private readonly Mock<ILogger<FeedbackSender>> _mockLogger;
+        private readonly Mock<IMessageSender<Null, AddPlayerFeedbackMessage>> _mockMessageSender;
 
         public FeedbackSenderTests()
         {
-            _mockFeedbackRepository = new Mock<IPlayerFeedbackRepository>();
-            _mockLogger = new Mock<ILogger<FeedbackSender>>();
+            _mockMessageSender = new Mock<IMessageSender<Null, AddPlayerFeedbackMessage>>();
         }
 
         public class SendShould : FeedbackSenderTests
@@ -48,11 +47,24 @@ namespace PlayerFeedbackService.Service.Tests
                     Timestamp = _playerFeedback.Timestamp
                 };
 
-                var feedbackSender = new FeedbackSender(_mockFeedbackRepository.Object, _mockLogger.Object);
+                var addPlayerFeedbackMessage = new AddPlayerFeedbackMessage
+                {
+                    SessionId = _playerFeedback.SessionId,
+                    PlayerId = _playerFeedback.PlayerId,
+                    Rating = _playerFeedback.Rating,
+                    Comment = _playerFeedback.Comment,
+                    Timestamp = _playerFeedback.Timestamp
+                };
+
+                _mockMessageSender
+                    .Setup(sender => sender.Send(It.IsAny<AddPlayerFeedbackMessage>()))
+                    .Verifiable();
+
+                var feedbackSender = new FeedbackSender(_mockMessageSender.Object);
 
                 var result = await feedbackSender.Send(_playerFeedback);
 
-                _mockFeedbackRepository.Verify(repo => repo.Store(playerFeedback));
+                _mockMessageSender.Verify(sender => sender.Send(addPlayerFeedbackMessage));
 
                 Assert.True(result.IsOk);
             }
@@ -62,7 +74,7 @@ namespace PlayerFeedbackService.Service.Tests
             {
                 var invalidFeedback = _playerFeedback with { Rating = 7 };
 
-                var feedbackSender = new FeedbackSender(_mockFeedbackRepository.Object, _mockLogger.Object);
+                var feedbackSender = new FeedbackSender(_mockMessageSender.Object);
 
                 var result = await feedbackSender.Send(invalidFeedback);
 

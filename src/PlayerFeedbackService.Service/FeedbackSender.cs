@@ -1,21 +1,21 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Confluent.Kafka;
 
 using PlayerFeedbackService.Domain;
 using PlayerFeedbackService.Service.Abstractions;
-using PlayerFeedbackService.Service.DataAccess;
+using PlayerFeedbackService.Service.MessageBroker;
+using PlayerFeedbackService.Service.MessageBroker.Messages;
 
 namespace PlayerFeedbackService.Service
 {
     public class FeedbackSender : IFeedbackSender
     {
-        private readonly IPlayerFeedbackRepository _playerFeedbackRepository;
-        private readonly ILogger<FeedbackSender> _logger;
+        private readonly IMessageSender<Null, AddPlayerFeedbackMessage> _messageSender;
 
-        public FeedbackSender(IPlayerFeedbackRepository playerFeedbackRepository, ILogger<FeedbackSender> logger)
+        public FeedbackSender(IMessageSender<Null, AddPlayerFeedbackMessage> messageSender)
         {
-            _playerFeedbackRepository = playerFeedbackRepository;
-            _logger = logger;
+            _messageSender = messageSender;
         }
 
         public async Task<Result> Send(PlayerFeedbackDto feedback)
@@ -35,20 +35,7 @@ namespace PlayerFeedbackService.Service
 
             }
 
-            try
-            {
-                await _playerFeedbackRepository.Store(feedbackValidation.Value);
-
-                return Result.Ok();
-            }
-            catch (DuplicateFeedbackException ex)
-            {
-                _logger.LogWarning(ex.Message);
-            }
-            catch (UnexpectedFeedbackInsertionException ex)
-            {
-                _logger.LogError(ex.Message, ex);
-            }
+            await _messageSender.Send(AddPlayerFeedbackMessage.CreateFromDomain(feedbackValidation.Value));
 
             return Result.Ok();
         }
