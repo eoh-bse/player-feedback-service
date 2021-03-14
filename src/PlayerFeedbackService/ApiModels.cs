@@ -11,14 +11,15 @@ namespace PlayerFeedbackService
         public int Rating { get; init; }
         public string Comment { get; init; }
 
-        public PlayerFeedbackDto ToDto()
+        public PlayerFeedbackDto ToDto(DateTime timestamp)
         {
             return new PlayerFeedbackDto
             {
                 SessionId = SessionId,
                 PlayerId = PlayerId,
                 Rating = Rating,
-                Comment = Comment
+                Comment = Comment,
+                Timestamp = timestamp
             };
         }
     }
