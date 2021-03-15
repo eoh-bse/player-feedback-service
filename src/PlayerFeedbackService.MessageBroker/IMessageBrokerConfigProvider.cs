@@ -6,6 +6,5 @@ namespace PlayerFeedbackService.MessageBroker
     {
         MessageBrokerConfig ProvideConfig();
         Topic ProvideTopicFor<TMessage>();
-        IReadOnlyCollection<Topic> GetAllTopics();
     }
 }

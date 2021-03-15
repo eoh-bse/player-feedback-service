@@ -31,10 +31,5 @@ namespace PlayerFeedbackService.MessageBroker
 
             throw new ArgumentException($"Topic name does not exist for message type '{messageType}'");
         }
-
-        public IReadOnlyCollection<Topic> GetAllTopics()
-        {
-            return _topics.Values.ToImmutableArray();
-        }
     }
 }

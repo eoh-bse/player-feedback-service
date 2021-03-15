@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Xunit;
 using Moq;
 
-using PlayerFeedbackService.Domain;
 using PlayerFeedbackService.Service.MessageBroker;
 using PlayerFeedbackService.Service.MessageBroker.Messages;
 
@@ -37,15 +36,6 @@ namespace PlayerFeedbackService.Service.Tests
             [Fact]
             public async Task ReturnOk_WhenValidPlayerFeedbackIsGiven()
             {
-                var playerFeedback = new PlayerFeedback
-                {
-                    SessionId = _playerFeedback.SessionId,
-                    PlayerId = _playerFeedback.PlayerId,
-                    Rating = _playerFeedback.Rating,
-                    Comment = _playerFeedback.Comment,
-                    Timestamp = _playerFeedback.Timestamp
-                };
-
                 var addPlayerFeedbackMessage = new AddPlayerFeedbackMessage
                 {
                     SessionId = _playerFeedback.SessionId,
