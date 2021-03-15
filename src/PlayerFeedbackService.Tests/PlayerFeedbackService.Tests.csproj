@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -17,6 +21,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../PlayerFeedbackService/PlayerFeedbackService.csproj" />
+    <ProjectReference Include="../PlayerFeedbackService.Service/PlayerFeedbackService.Service.csproj" />
+    <ProjectReference Include="../PlayerFeedbackService.Domain/PlayerFeedbackService.Domain.csproj" />
   </ItemGroup>
 
 </Project>

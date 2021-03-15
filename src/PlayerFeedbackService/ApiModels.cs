@@ -26,11 +26,13 @@ namespace PlayerFeedbackService
 
     public record PlayerFeedbackResponse
     {
-        public Guid SessionId { get; }
-        public Guid PlayerId { get; }
-        public int Rating { get; }
-        public string Comment { get; }
-        public DateTime Timestamp { get; }
+        public Guid SessionId { get; init; }
+        public Guid PlayerId { get; init; }
+        public int Rating { get; init; }
+        public string Comment { get; init; }
+        public DateTime Timestamp { get; init; }
+
+        public PlayerFeedbackResponse() {}
 
         public PlayerFeedbackResponse(Guid sessionId, Guid playerId, int rating, string comment, DateTime timestamp)
         {

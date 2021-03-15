@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerFeedbackService.Messa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerFeedbackService.MessageBroker.Tests", "src\PlayerFeedbackService.MessageBroker.Tests\PlayerFeedbackService.MessageBroker.Tests.csproj", "{CF800C03-A85A-48D9-9F97-7C36283624A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerFeedbackService.Tests", "src\PlayerFeedbackService.Tests\PlayerFeedbackService.Tests.csproj", "{3C3854AC-90CB-41A8-A750-15FBA1C62369}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -144,6 +146,18 @@ Global
 		{CF800C03-A85A-48D9-9F97-7C36283624A7}.Release|x64.Build.0 = Release|Any CPU
 		{CF800C03-A85A-48D9-9F97-7C36283624A7}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF800C03-A85A-48D9-9F97-7C36283624A7}.Release|x86.Build.0 = Release|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Debug|x64.Build.0 = Debug|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Debug|x86.Build.0 = Debug|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Release|x64.ActiveCfg = Release|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Release|x64.Build.0 = Release|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CC1A8A4D-6017-47BC-A109-EFB0C4F9E28B} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
@@ -155,5 +169,6 @@ Global
 		{ABF9CD4A-E6F3-4C1E-B81E-EDD6A6197BA6} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
 		{8A399E9F-7865-4157-AC7D-7D062F2F04DD} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
 		{CF800C03-A85A-48D9-9F97-7C36283624A7} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
+		{3C3854AC-90CB-41A8-A750-15FBA1C62369} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
 	EndGlobalSection
 EndGlobal
