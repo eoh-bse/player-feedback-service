@@ -1,23 +1,31 @@
 using System;
-using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations;
+
 using PlayerFeedbackService.Service;
 
 namespace PlayerFeedbackService
 {
     public record PlayerFeedBackRequest
     {
-        public Guid SessionId { get; init; }
-        public Guid PlayerId { get; init; }
-        public int Rating { get; init; }
+        [Required]
+        public Guid? SessionId { get; init; }
+
+        [Required]
+        public Guid? PlayerId { get; init; }
+
+        [Required]
+        public int? Rating { get; init; }
+
+        [Required(AllowEmptyStrings = true)]
         public string Comment { get; init; }
 
         public PlayerFeedbackDto ToDto(DateTime timestamp)
         {
             return new PlayerFeedbackDto
             {
-                SessionId = SessionId,
-                PlayerId = PlayerId,
-                Rating = Rating,
+                SessionId = SessionId.Value,
+                PlayerId = PlayerId.Value,
+                Rating = Rating.Value,
                 Comment = Comment,
                 Timestamp = timestamp
             };

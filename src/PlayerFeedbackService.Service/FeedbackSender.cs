@@ -30,7 +30,6 @@ namespace PlayerFeedbackService.Service
             if (!feedbackValidation.IsOk)
             {
                 return Result.Fail(feedbackValidation.Error);
-
             }
 
             await _messageSender.Send(AddPlayerFeedbackMessage.CreateFromDomain(feedbackValidation.Value));
