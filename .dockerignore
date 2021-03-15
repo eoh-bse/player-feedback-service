@@ -1,5 +1,14 @@
+.git
 .idea
 *.DotSettings.user
 **/**/bin
 **/**/obj
 **/**/Properties
+.gitattributes
+.gitignore
+docker-compose.yml
+Dockerfile
+*.sln.DotSettings.user
+README.md
+*.sh
+*.cmd
