@@ -28,7 +28,12 @@ namespace PlayerFeedbackService.DataAccess
             var playerFeedbacks = await _elasticClient.SearchAsync<PlayerFeedbackDocument>(search =>
                 search
                     .RequestConfiguration(request => request.DisableDirectStreaming())
-                    .Query(query => query.MatchAll())
+                    .Query(query => query.Range(range =>
+                        range
+                            .Field(field => field.Rating)
+                            .GreaterThanOrEquals(filter.RatingRange.Min)
+                            .LessThanOrEquals(filter.RatingRange.Max)
+                    ))
                     .Size(15)
                     .Sort(sorting =>
                         sorting.Descending(doc => doc.Timestamp)
@@ -38,11 +43,10 @@ namespace PlayerFeedbackService.DataAccess
             return playerFeedbacks.Documents.Select(doc => doc.ToDto()).ToImmutableArray();
         }
 
-        public async Task Store(PlayerFeedback feedback)
+        public async Task Store(PlayerFeedbackDto feedback)
         {
-            var feedbackToStore = PlayerFeedbackDocument.CreateFromDomain(feedback);
-
-            var creationResult = await _elasticClient.CreateDocumentAsync(feedbackToStore);
+            var feedbackDocument = PlayerFeedbackDocument.CreateFromDto(feedback);
+            var creationResult = await _elasticClient.CreateDocumentAsync(feedbackDocument);
 
             if (creationResult.IsValid) return;
 

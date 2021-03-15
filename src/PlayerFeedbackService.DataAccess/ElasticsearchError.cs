@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-using PlayerFeedbackService.Domain;
+using PlayerFeedbackService.Service;
 
 namespace PlayerFeedbackService.DataAccess
 {
@@ -8,7 +8,7 @@ namespace PlayerFeedbackService.DataAccess
     {
         public const string DocumentVersionConflictError = "version_conflict_engine_exception";
 
-        public static string GenerateMessageForPlayerFeedbackInsertionError(PlayerFeedback feedback)
+        public static string GenerateMessageForPlayerFeedbackInsertionError(PlayerFeedbackDto feedback)
         {
             var serializedFeedback = JsonSerializer.Serialize(feedback);
 

@@ -28,7 +28,7 @@ namespace PlayerFeedbackService.DataAccess
             };
         }
 
-        public static PlayerFeedbackDocument CreateFromDomain(PlayerFeedback feedback)
+        public static PlayerFeedbackDocument CreateFromDto(PlayerFeedbackDto feedback)
         {
             return new PlayerFeedbackDocument
             {
