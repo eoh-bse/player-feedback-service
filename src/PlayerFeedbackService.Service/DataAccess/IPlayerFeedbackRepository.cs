@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using PlayerFeedbackService.Domain;
-
 namespace PlayerFeedbackService.Service.DataAccess
 {
     public interface IPlayerFeedbackRepository

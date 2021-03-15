@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace PlayerFeedbackService.MessageBroker
 {
     public interface IMessageBrokerConfigProvider
