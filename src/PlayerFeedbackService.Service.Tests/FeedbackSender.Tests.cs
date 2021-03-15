@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Confluent.Kafka;
 using Xunit;
 using Moq;
 
@@ -12,11 +11,11 @@ namespace PlayerFeedbackService.Service.Tests
 {
     public class FeedbackSenderTests
     {
-        private readonly Mock<IMessageSender<Null, AddPlayerFeedbackMessage>> _mockMessageSender;
+        private readonly Mock<IMessageSender> _mockMessageSender;
 
         public FeedbackSenderTests()
         {
-            _mockMessageSender = new Mock<IMessageSender<Null, AddPlayerFeedbackMessage>>();
+            _mockMessageSender = new Mock<IMessageSender>();
         }
 
         public class SendShould : FeedbackSenderTests

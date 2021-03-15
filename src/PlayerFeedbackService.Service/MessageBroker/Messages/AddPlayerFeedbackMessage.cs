@@ -23,5 +23,17 @@ namespace PlayerFeedbackService.Service.MessageBroker.Messages
                 Timestamp = feedback.Timestamp
             };
         }
+
+        public PlayerFeedbackDto ToDto()
+        {
+            return new PlayerFeedbackDto
+            {
+                SessionId = SessionId,
+                PlayerId = PlayerId,
+                Rating = Rating,
+                Comment = Comment,
+                Timestamp = Timestamp
+            };
+        }
     }
 }

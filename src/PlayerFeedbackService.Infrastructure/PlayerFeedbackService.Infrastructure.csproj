@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../PlayerFeedbackService.DataAccess/PlayerFeedbackService.DataAccess.csproj" />
+    <ProjectReference Include="../PlayerFeedbackService.MessageBroker/PlayerFeedbackService.MessageBroker.csproj" />
   </ItemGroup>
 
 </Project>

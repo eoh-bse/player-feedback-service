@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
@@ -8,33 +9,33 @@ using PlayerFeedbackService.Service.MessageBroker;
 
 namespace PlayerFeedbackService.MessageBroker
 {
-    public class MessageSender<TKey, TMessage> : IMessageSender<TKey, TMessage>
+    public class MessageSender : IMessageSender
     {
-        private readonly ITopicNameProvider _topicNameProvider;
-        private readonly IProducer<TKey, TMessage> _producer;
-        private readonly ILogger<MessageSender<TKey, TMessage>> _logger;
+        private readonly IMessageBrokerConfigProvider _messageBrokerConfigProvider;
+        private readonly IProducer<Null, string> _producer;
+        private readonly ILogger<MessageSender> _logger;
 
         public MessageSender(
-            ITopicNameProvider topicNameProvider,
-            IProducer<TKey, TMessage> producer,
-            ILogger<MessageSender<TKey, TMessage>> logger
+            IMessageBrokerConfigProvider messageBrokerConfigProvider,
+            IProducer<Null, string> producer,
+            ILogger<MessageSender> logger
         )
         {
-            _topicNameProvider = topicNameProvider;
+            _messageBrokerConfigProvider = messageBrokerConfigProvider;
             _producer = producer;
             _logger = logger;
         }
 
-        public async Task Send(TMessage message)
+        public async Task Send<TMessage>(TMessage message)
         {
-            var topicName = _topicNameProvider.ProvideFor<TMessage>();
+            var topic = _messageBrokerConfigProvider.ProvideTopicFor<TMessage>();
             var serializedMessage = JsonSerializer.Serialize(message);
 
             try
             {
-                await _producer.ProduceAsync(topicName, new Message<TKey, TMessage>
+                await _producer.ProduceAsync(topic.Name, new Message<Null, string>
                 {
-                    Value = message
+                    Value = serializedMessage
                 });
 
                 _logger.LogInformation($"Successfully published message: {serializedMessage}");
@@ -42,6 +43,32 @@ namespace PlayerFeedbackService.MessageBroker
             catch (Exception ex)
             {
                 _logger.LogError($"Could not publish message: {serializedMessage}", ex);
+            }
+        }
+
+        public async Task SendToDeadLetterQueue<TMessage>(TMessage deadLetterMessage, Exception error)
+        {
+            var topic = _messageBrokerConfigProvider.ProvideTopicFor<TMessage>();
+            var serializedMessage = JsonSerializer.Serialize(deadLetterMessage);
+            var serializedError = error.ToString();
+
+            try
+            {
+                var headers = new Headers();
+                var errorHeader = new Header("Error", Encoding.UTF8.GetBytes(serializedError));
+                headers.Add(errorHeader);
+
+                await _producer.ProduceAsync(topic.DeadLetterQueueName, new Message<Null, string>
+                {
+                    Value = serializedMessage,
+                    Headers = headers
+                });
+
+                _logger.LogInformation($"Successfully published message: {serializedMessage} to dead letter queue");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Could not publish message: {serializedMessage} to dead letter queue", ex);
             }
         }
     }

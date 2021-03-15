@@ -1,6 +1,4 @@
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Confluent.Kafka;
 
 using PlayerFeedbackService.Domain;
 using PlayerFeedbackService.Service.Abstractions;
@@ -11,9 +9,9 @@ namespace PlayerFeedbackService.Service
 {
     public class FeedbackSender : IFeedbackSender
     {
-        private readonly IMessageSender<Null, AddPlayerFeedbackMessage> _messageSender;
+        private readonly IMessageSender _messageSender;
 
-        public FeedbackSender(IMessageSender<Null, AddPlayerFeedbackMessage> messageSender)
+        public FeedbackSender(IMessageSender messageSender)
         {
             _messageSender = messageSender;
         }
