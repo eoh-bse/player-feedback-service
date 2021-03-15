@@ -28,4 +28,4 @@
 * Start the service and open up `http://localhost:5000/swagger/index.html` on your browser to see automatically generated swagger
 
 ## How to use PlayerFeedbackService
-* Once the service is up and running
+* Once the service is up and running, you can make requests using `POSTMAN`, `curl` and `http://localhost:5000/swagger/index.html`
