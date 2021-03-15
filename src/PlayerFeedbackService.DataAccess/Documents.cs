@@ -1,7 +1,6 @@
 using System;
 using Nest;
 
-using PlayerFeedbackService.Domain;
 using PlayerFeedbackService.Service;
 
 namespace PlayerFeedbackService.DataAccess

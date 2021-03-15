@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerFeedbackService.Messa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerFeedbackService.Tests", "src\PlayerFeedbackService.Tests\PlayerFeedbackService.Tests.csproj", "{3C3854AC-90CB-41A8-A750-15FBA1C62369}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerFeedbackService.DataAccess.Tests", "src\PlayerFeedbackService.DataAccess.Tests\PlayerFeedbackService.DataAccess.Tests.csproj", "{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -158,6 +160,18 @@ Global
 		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Release|x64.Build.0 = Release|Any CPU
 		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Release|x86.ActiveCfg = Release|Any CPU
 		{3C3854AC-90CB-41A8-A750-15FBA1C62369}.Release|x86.Build.0 = Release|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Debug|x64.Build.0 = Debug|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Debug|x86.Build.0 = Debug|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Release|x64.ActiveCfg = Release|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Release|x64.Build.0 = Release|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Release|x86.ActiveCfg = Release|Any CPU
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CC1A8A4D-6017-47BC-A109-EFB0C4F9E28B} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
@@ -170,5 +184,6 @@ Global
 		{8A399E9F-7865-4157-AC7D-7D062F2F04DD} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
 		{CF800C03-A85A-48D9-9F97-7C36283624A7} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
 		{3C3854AC-90CB-41A8-A750-15FBA1C62369} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
+		{F0F055A7-9F07-4C80-866E-B0A92D96A0BC} = {DA09DA9C-1551-4092-8A13-CE2B2B2D690F}
 	EndGlobalSection
 EndGlobal
