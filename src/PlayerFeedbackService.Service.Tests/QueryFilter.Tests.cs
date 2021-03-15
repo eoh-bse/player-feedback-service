@@ -6,51 +6,71 @@ namespace PlayerFeedbackService.Service.Tests
 {
     public class QueryFilterTests
     {
-        public class QueryFilterEmpty
+        private readonly QueryFilter _defaultFilter = new QueryFilter
+        {
+            RatingRange = new RatingRange
+            {
+                Min = 1,
+                Max = 5
+            }
+        };
+
+        public class QueryFilterDefault : QueryFilterTests
         {
             [Fact]
-            public void ShouldSetIsEmptyTrue()
+            public void ShouldSetMinAndMaxRating()
             {
-                var filter = QueryFilter.Empty();
+                var filter = QueryFilter.Default();
 
-                Assert.True(filter.IsEmpty);
+                Assert.Equal(_defaultFilter, filter);
             }
         }
 
-        public class QueryFilterBy
+        public class QueryFilterBy : QueryFilterTests
         {
             [Fact]
-            public void ShouldSetIsEmptyTrue()
+            public void ShouldCreateDefaultFilter()
             {
-                var filter = QueryFilter.Empty();
+                var filter = QueryFilter.By();
 
-                Assert.True(filter.IsEmpty);
+                Assert.Equal(_defaultFilter, filter);
             }
         }
 
-        public class QueryFilterRating
+        public class QueryFilterRating : QueryFilterTests
         {
             [Fact]
-            public void ShouldSet_IsEmptyFalse_FilterByRatingTrue_And_RatingRange()
+            public void ShouldSetRatingRange()
             {
                 var ratingRange = new RatingRange
                 {
-                    Min = 1,
-                    Max = 5
+                    Min = 2,
+                    Max = 4
                 };
 
                 var filter = QueryFilter.By().Rating(ratingRange);
+                var expectedFilter = new QueryFilter
+                {
+                    RatingRange = ratingRange
+                };
 
-                Assert.False(filter.IsEmpty);
-                Assert.True(filter.FilterByRating);
-                Assert.Equal(ratingRange, filter.RatingRange);
+                Assert.Equal(expectedFilter, filter);
             }
         }
 
-        public class QueryFilterCreateFrom
+        public class QueryFilterCreateFrom : QueryFilterTests
         {
             [Fact]
-            public void ShouldReturnEmptyFilter_WhenRawFilterIsEmpty()
+            public void ShouldReturnOkAndDefaultFilter_WhenRawFilterIsNull()
+            {
+                var filterCreationResult = QueryFilter.CreateFrom(null);
+
+                Assert.True(filterCreationResult.IsOk);
+                Assert.Equal(_defaultFilter, filterCreationResult.Value);
+            }
+
+            [Fact]
+            public void ShouldReturnOkAndDefaultFilter_WhenRawFilterIsEmpty()
             {
                 var rawFilter = new RawFilter
                 {
@@ -61,39 +81,46 @@ namespace PlayerFeedbackService.Service.Tests
                 var filterCreationResult = QueryFilter.CreateFrom(rawFilter);
 
                 Assert.True(filterCreationResult.IsOk);
-                Assert.True(filterCreationResult.Value.IsEmpty);
+                Assert.Equal(_defaultFilter, filterCreationResult.Value);
             }
 
-            [Fact]
-            public void ShouldReturnFilter_WhenValidRatingRangeIsGiven()
+            [Theory]
+            [InlineData(1, 5)]
+            [InlineData(2, 4)]
+            [InlineData(5, 5)]
+            public void ShouldReturnFilter_WhenValidRatingRangeIsGiven(int? min, int? max)
             {
                 var rawFilter = new RawFilter
                 {
-                    MinRating = 1,
-                    MaxRating = 5
+                    MinRating = min,
+                    MaxRating = max
                 };
 
                 var filterCreationResult = QueryFilter.CreateFrom(rawFilter);
-
-                var expectedRatingRange = new RatingRange
+                var expectedFilter = new QueryFilter
                 {
-                    Min = rawFilter.MinRating.Value,
-                    Max = rawFilter.MaxRating.Value
+                    RatingRange = new RatingRange
+                    {
+                        Min = min.Value,
+                        Max = max.Value
+                    }
                 };
 
                 Assert.True(filterCreationResult.IsOk);
-                Assert.False(filterCreationResult.Value.IsEmpty);
-                Assert.True(filterCreationResult.Value.FilterByRating);
-                Assert.Equal(expectedRatingRange, filterCreationResult.Value.RatingRange);
+                Assert.Equal(expectedFilter, filterCreationResult.Value);
             }
 
-            [Fact]
-            public void ShouldReturnError_WhenMinMaxRatingIsOutOfRange()
+            [Theory]
+            [InlineData(-1, 5)]
+            [InlineData(2, 9)]
+            [InlineData(null, 5)]
+            [InlineData(2, null)]
+            public void ShouldReturnError_WhenMinMaxRatingIsOutOfRange(int? min, int? max)
             {
                 var rawFilter = new RawFilter
                 {
-                    MinRating = null,
-                    MaxRating = 9
+                    MinRating = min,
+                    MaxRating = max
                 };
 
                 var filterCreationResult = QueryFilter.CreateFrom(rawFilter);

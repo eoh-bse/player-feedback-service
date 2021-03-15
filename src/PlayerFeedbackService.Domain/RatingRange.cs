@@ -2,6 +2,8 @@ namespace PlayerFeedbackService.Domain
 {
     public record RatingRange
     {
+        public static readonly int MinLimit = 1;
+        public static readonly int MaxLimit = 5;
         public int Min { get; init; }
         public int Max { get; init; }
 

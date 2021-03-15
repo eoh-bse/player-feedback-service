@@ -15,40 +15,35 @@ namespace PlayerFeedbackService.Service
 
     public record QueryFilter
     {
-        public bool IsEmpty { get; private set; }
-        public bool FilterByRating { get; private set; }
-        public RatingRange RatingRange { get; private set; }
+        public RatingRange RatingRange { get; init; }
 
-        public static QueryFilter Empty()
+        public static QueryFilter Default()
         {
             return new()
             {
-                IsEmpty = true
+                RatingRange = new RatingRange
+                {
+                    Min = RatingRange.MinLimit,
+                    Max = RatingRange.MaxLimit
+                }
             };
         }
 
         public static QueryFilter By()
         {
-            return new()
-            {
-                IsEmpty = true
-            };
+            return Default();
         }
 
         public QueryFilter Rating(RatingRange ratingRange)
         {
-            IsEmpty = false;
-            FilterByRating = true;
-            RatingRange = ratingRange;
-
-            return this;
+            return this with { RatingRange = ratingRange };
         }
 
         public static Result<QueryFilter> CreateFrom(RawFilter filter)
         {
-            if (filter.IsEmpty())
+            if (filter == null || filter.IsEmpty())
             {
-                return Result.Ok(Empty());
+                return Result.Ok(Default());
             }
 
             var ratingRangeValidation = RatingRange.Create(filter.MinRating, filter.MaxRating);

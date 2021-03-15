@@ -6,7 +6,7 @@ namespace PlayerFeedbackService.Domain
         {
             if (rating.HasValue)
             {
-                return rating.Value < 1 || rating.Value > 5;
+                return rating.Value < RatingRange.MinLimit || rating.Value > RatingRange.MaxLimit;
             }
 
             return true;
