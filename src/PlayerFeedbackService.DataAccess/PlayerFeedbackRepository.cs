@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Elasticsearch.Net;
 using Nest;
 
-using PlayerFeedbackService.Domain;
 using PlayerFeedbackService.Service;
 using PlayerFeedbackService.Service.DataAccess;
 
