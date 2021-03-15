@@ -78,7 +78,7 @@ namespace PlayerFeedbackService.MessageBroker.MessageListeners
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            return Task.Run(() => StartListening(stoppingToken));
+            return Task.Run(() => StartListening(stoppingToken), stoppingToken);
         }
     }
 }
