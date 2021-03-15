@@ -8,7 +8,7 @@ services:
       cluster.name: es-docker-cluster
       discovery.type: single-node
     volumes:
-      - es-data:/usr/share/elasticsearch/data
+      - es-data-elb:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300
@@ -31,8 +31,8 @@ services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     volumes:
-      - zookeeper-data:/var/lib/zookeeper/data
-      - zookeeper-log:/var/lib/zookeeper/log
+      - zookeeper-data-elb:/var/lib/zookeeper/data
+      - zookeeper-log-elb:/var/lib/zookeeper/log
     ports:
       - 2181:2181
     environment:
@@ -46,7 +46,7 @@ services:
   kafka:
     image: confluentinc/cp-kafka:latest
     volumes:
-      - kafka-data:/var/lib/kafka/data
+      - kafka-data-elb:/var/lib/kafka/data
     ports:
       - 9092:9092
     environment:
@@ -61,25 +61,25 @@ services:
     restart: always
 
 volumes:
-  es-data:
+  es-data-elb:
     driver: local
     driver_opts:
       o: "size=500m"
       device: tmpfs
       type: tmpfs
-  zookeeper-data:
+  zookeeper-data-elb:
     driver: local
     driver_opts:
       o: "size=500m"
       device: tmpfs
       type: tmpfs
-  zookeeper-log:
+  zookeeper-log-elb:
     driver: local
     driver_opts:
       o: "size=500m"
       device: tmpfs
       type: tmpfs
-  kafka-data:
+  kafka-data-elb:
     driver: local
     driver_opts:
       o: "size=500m"
