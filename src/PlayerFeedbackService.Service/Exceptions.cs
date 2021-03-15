@@ -8,7 +8,7 @@ namespace PlayerFeedbackService.Service
     {
         private DuplicateFeedbackException(string message) : base(message) {}
 
-        public static DuplicateFeedbackException Create(Guid sessionId, Guid playerId, DateTime timestamp)
+        public static DuplicateFeedbackException Create(Guid sessionId, string playerId, DateTime timestamp)
         {
             var message = ErrorMessage.Create(ErrorType.DuplicateFeedback, sessionId, playerId, timestamp);
 

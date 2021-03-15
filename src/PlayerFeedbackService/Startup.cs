@@ -80,6 +80,7 @@ namespace PlayerFeedbackService
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PlayerFeedbackService", Version = "v1" });
+                c.OperationFilter<AddRequiredUbiUserIdHeaderParameter>();
             });
 
             services.AddElasticsearch(() => new ElasticsearchConfig

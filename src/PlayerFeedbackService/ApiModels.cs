@@ -11,20 +11,17 @@ namespace PlayerFeedbackService
         public Guid? SessionId { get; init; }
 
         [Required]
-        public Guid? PlayerId { get; init; }
-
-        [Required]
         public int? Rating { get; init; }
 
         [Required(AllowEmptyStrings = true)]
         public string Comment { get; init; }
 
-        public PlayerFeedbackDto ToDto(DateTime timestamp)
+        public PlayerFeedbackDto ToDto(DateTime timestamp, string playerId)
         {
             return new PlayerFeedbackDto
             {
                 SessionId = SessionId.Value,
-                PlayerId = PlayerId.Value,
+                PlayerId = playerId,
                 Rating = Rating.Value,
                 Comment = Comment,
                 Timestamp = timestamp
@@ -35,14 +32,14 @@ namespace PlayerFeedbackService
     public record PlayerFeedbackResponse
     {
         public Guid SessionId { get; init; }
-        public Guid PlayerId { get; init; }
+        public string PlayerId { get; init; }
         public int Rating { get; init; }
         public string Comment { get; init; }
         public DateTime Timestamp { get; init; }
 
         public PlayerFeedbackResponse() {}
 
-        public PlayerFeedbackResponse(Guid sessionId, Guid playerId, int rating, string comment, DateTime timestamp)
+        public PlayerFeedbackResponse(Guid sessionId, string playerId, int rating, string comment, DateTime timestamp)
         {
             SessionId = sessionId;
             PlayerId = playerId;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
+using PlayerFeedbackService.Domain;
 using PlayerFeedbackService.Service;
 using PlayerFeedbackService.Service.Abstractions;
 
@@ -45,9 +46,17 @@ namespace PlayerFeedbackService.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PlayerFeedBackRequest feedback)
         {
+            var ubiUserIdExtractionResult = UbiUserIdHeader.ExtractUbiUserId(Request);
+
+            if (ubiUserIdExtractionResult.IsError)
+            {
+                return BadRequest(ubiUserIdExtractionResult.Error);
+            }
+
             var utcTimeNow = _clock.GetTimeNow();
 
-            var feedbackSendingResult = await _feedbackSender.Send(feedback.ToDto(utcTimeNow));
+            var feedbackSendingResult =
+                await _feedbackSender.Send(feedback.ToDto(utcTimeNow, ubiUserIdExtractionResult.Value));
 
             if (feedbackSendingResult.IsOk)
             {

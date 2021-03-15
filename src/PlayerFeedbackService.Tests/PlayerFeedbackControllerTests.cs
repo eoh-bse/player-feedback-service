@@ -34,7 +34,7 @@ namespace PlayerFeedbackService.Tests
             private readonly PlayerFeedbackDto _defaultPlayerFeedbackDto = new PlayerFeedbackDto
             {
                 SessionId = new Guid("906733a4-f2c9-44c1-9e03-b8a8c5393e18"),
-                PlayerId = new Guid("d7b0ee30-c68d-4f36-b665-fb650b17aa70"),
+                PlayerId = "player-id-1",
                 Rating = 5,
                 Comment = "",
                 Timestamp = new DateTime(2021, 3, 15)
@@ -110,12 +110,12 @@ namespace PlayerFeedbackService.Tests
         public class PostShould : PlayerFeedbackControllerTests
         {
             [Fact]
-            public async Task ReturnOk_WhenValidFeedbackIsGivenAndFeedbackIsSuccessfullySent()
+            public async Task ReturnOk_WhenValidFeedbackIsGivenWithUbiUserIdHeader_And_FeedbackIsSuccessfullySent()
             {
+                var ubiUserId = "player-id-1";
                 var requestBody = new PlayerFeedBackRequest
                 {
                     SessionId = new Guid("906733a4-f2c9-44c1-9e03-b8a8c5393e18"),
-                    PlayerId = new Guid("d7b0ee30-c68d-4f36-b665-fb650b17aa70"),
                     Rating = 5,
                     Comment = ""
                 };
@@ -127,6 +127,12 @@ namespace PlayerFeedbackService.Tests
                 var controller =
                     new PlayerFeedbackController(_mockQueryHandler.Object, _mockFeedbackSender.Object, _mockClock.Object);
 
+                controller.ControllerContext.HttpContext = new DefaultHttpContext();
+
+                UbiUserIdHeaderHelper.AddUbiUserIdsToRequestHeader(
+                    controller.ControllerContext.HttpContext.Request,
+                    ubiUserId
+                );
 
                 var responseResult = await controller.Post(requestBody);
                 var response = Assert.IsType<OkResult>(responseResult);
@@ -135,12 +141,41 @@ namespace PlayerFeedbackService.Tests
             }
 
             [Fact]
-            public async Task ReturnBadRequest_WhenInvalidFeedbackIsGiven()
+            public async Task ReturnBadRequest_WhenUbiUserIdHeaderIsMissing()
             {
                 var requestBody = new PlayerFeedBackRequest
                 {
                     SessionId = new Guid("906733a4-f2c9-44c1-9e03-b8a8c5393e18"),
-                    PlayerId = new Guid("d7b0ee30-c68d-4f36-b665-fb650b17aa70"),
+                    Rating = 5,
+                    Comment = ""
+                };
+
+                var controller =
+                    new PlayerFeedbackController(_mockQueryHandler.Object, _mockFeedbackSender.Object, _mockClock.Object);
+
+                controller.ControllerContext.HttpContext = new DefaultHttpContext();
+
+                var responseResult = await controller.Post(requestBody);
+                var response = Assert.IsType<BadRequestObjectResult>(responseResult);
+                var receivedError = Assert.IsAssignableFrom<Error>(response.Value);
+
+                var expectedError = new Error
+                {
+                    Type = UbiUserIdHeader.UbiUserIdMissingError,
+                    Message = UbiUserIdHeader.UbiUserIdMissingErrorMessage
+                };
+
+                Assert.Equal(StatusCodes.Status400BadRequest, response.StatusCode);
+                Assert.Equal(expectedError, receivedError);
+            }
+
+            [Fact]
+            public async Task ReturnBadRequest_WhenUbiUserIdIsGiven_But_InvalidFeedbackIsGiven()
+            {
+                var ubiUserId = "player-id-1";
+                var requestBody = new PlayerFeedBackRequest
+                {
+                    SessionId = new Guid("906733a4-f2c9-44c1-9e03-b8a8c5393e18"),
                     Rating = -1,
                     Comment = ""
                 };
@@ -157,6 +192,13 @@ namespace PlayerFeedbackService.Tests
 
                 var controller =
                     new PlayerFeedbackController(_mockQueryHandler.Object, _mockFeedbackSender.Object, _mockClock.Object);
+
+                controller.ControllerContext.HttpContext = new DefaultHttpContext();
+
+                UbiUserIdHeaderHelper.AddUbiUserIdsToRequestHeader(
+                    controller.ControllerContext.HttpContext.Request,
+                    ubiUserId
+                );
 
                 var responseResult = await controller.Post(requestBody);
                 var response = Assert.IsType<BadRequestObjectResult>(responseResult);

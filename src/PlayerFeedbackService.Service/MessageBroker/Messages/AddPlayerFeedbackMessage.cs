@@ -7,7 +7,7 @@ namespace PlayerFeedbackService.Service.MessageBroker.Messages
     public record AddPlayerFeedbackMessage
     {
         public Guid SessionId { get; init; }
-        public Guid PlayerId { get; init; }
+        public string PlayerId { get; init; }
         public int Rating { get; init; }
         public string Comment { get; init; }
         public DateTime Timestamp { get; init; }

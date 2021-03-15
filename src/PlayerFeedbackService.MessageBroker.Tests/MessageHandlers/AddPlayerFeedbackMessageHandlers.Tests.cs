@@ -19,7 +19,7 @@ namespace PlayerFeedbackService.MessageBroker.Tests.MessageHandlers
             private readonly AddPlayerFeedbackMessage _defaultMessage = new AddPlayerFeedbackMessage
             {
                 SessionId = new Guid("247a1b38-cf3f-4205-b278-2f2dafe1e843"),
-                PlayerId = new Guid("7cd232ff-632e-4eaa-9734-6884ca5dd1e6"),
+                PlayerId = "player-id-1",
                 Rating = 5,
                 Comment = "",
                 Timestamp = new DateTime(2021, 3, 15)

@@ -17,7 +17,7 @@ namespace PlayerFeedbackService.Domain
         public const string DuplicateFeedbackMessage = "";
         public const string UnknownErrorMessage = "Unknown Error";
 
-        private static string BuildForDuplicateFeedbackMessage(Guid sessionId, Guid playerId, DateTime timestamp)
+        private static string BuildForDuplicateFeedbackMessage(Guid sessionId, string playerId, DateTime timestamp)
         {
             var formattedDate = timestamp.ToString("u", DateTimeFormatInfo.InvariantInfo);
 
@@ -42,7 +42,7 @@ namespace PlayerFeedbackService.Domain
             }
         }
 
-        public static string Create(ErrorType type, Guid sessionId, Guid playerId, DateTime timestamp)
+        public static string Create(ErrorType type, Guid sessionId, string playerId, DateTime timestamp)
         {
             if (type == ErrorType.DuplicateFeedback)
             {

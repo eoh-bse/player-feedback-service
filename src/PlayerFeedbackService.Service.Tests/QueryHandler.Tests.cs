@@ -26,7 +26,7 @@ namespace PlayerFeedbackService.Service.Tests
                 _playerFeedback = new PlayerFeedbackDto
                 {
                     SessionId = new Guid("1e4b4f69-472d-4190-bdb2-450e8ae6e36d"),
-                    PlayerId = new Guid("5a2b36f3-284c-4433-afed-57e60a84e987"),
+                    PlayerId = "player-id-1",
                     Rating = 5,
                     Comment = "",
                     Timestamp = new DateTime(2021, 3, 12)

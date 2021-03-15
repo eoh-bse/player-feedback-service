@@ -10,7 +10,7 @@ namespace PlayerFeedbackService.DataAccess
     {
         public string Id { get; init; }
         public Guid SessionId { get; init; }
-        public Guid PlayerId { get; init; }
+        public string PlayerId { get; init; }
         public int Rating { get; init; }
         public string Comment { get; init; }
         public DateTime Timestamp { get; init; }
@@ -31,7 +31,7 @@ namespace PlayerFeedbackService.DataAccess
         {
             return new PlayerFeedbackDocument
             {
-                Id = $"{feedback.SessionId.ToString()}-{feedback.PlayerId.ToString()}",
+                Id = $"{feedback.SessionId.ToString()}-{feedback.PlayerId}",
                 SessionId = feedback.SessionId,
                 PlayerId = feedback.PlayerId,
                 Rating = feedback.Rating,

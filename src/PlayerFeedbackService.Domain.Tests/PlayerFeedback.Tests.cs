@@ -8,7 +8,7 @@ namespace PlayerFeedbackService.Domain.Tests
         public class PlayerFeedbackCreateShould
         {
             private readonly Guid _sessionId = new Guid("c8ec99fe-f069-497c-a2e5-2ee998ead47f");
-            private readonly Guid _playerId = new Guid("c5cadc21-4181-43a6-bd94-d17eabb17782");
+            private readonly string _playerId = "player-id-1";
             private readonly string comment = "player comment";
             private readonly DateTime timestamp = new DateTime(2021, 3, 12);
 
