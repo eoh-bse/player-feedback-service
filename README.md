@@ -6,15 +6,10 @@
 * .NET 5 (optional)
 
 ## How to start the service locally
-* On Mac/Linux, run `bash start_app.sh` on Terminal
-* On Windows, run `start_app.cmd` on CMD
-* If you run into error about disk space running out, run `docker system prune` (at your own discretion) and `docker-compose up` in root project folder 
-  and then run `dotnet run --project src/PlayerFeedbackService/PlayerFeedbackService.csproj` (this will spawn docker containers only for infrastructure
-  and run the service natively on your machine)
+* On your terminal, run `docker-compose up`
 
 ## How to shut down the service
-* On Max/Linux, run `bash stop_app.sh` on Terminal
-* On Windows, run `stop_app.cmd` on CMD
+* On your terminal, run `docker-compose stop`
 
 ## How to run tests
 * On Max/Linux, run `bash run_tests.sh` on Terminal
