@@ -29,3 +29,4 @@
 
 ## How to use PlayerFeedbackService
 * Once the service is up and running, you can make requests using `POSTMAN`, `curl` and `http://localhost:5000/swagger/index.html`
+* To see the persisted data, open `http://localhost:5601` on your browser to open Kibana. Use `Dev Tool` to query the data
