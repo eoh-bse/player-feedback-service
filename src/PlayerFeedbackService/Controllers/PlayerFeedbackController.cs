@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
-using PlayerFeedbackService.Domain;
 using PlayerFeedbackService.Service;
 using PlayerFeedbackService.Service.Abstractions;
 

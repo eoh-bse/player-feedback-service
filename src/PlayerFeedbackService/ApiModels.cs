@@ -20,9 +20,9 @@ namespace PlayerFeedbackService
         {
             return new PlayerFeedbackDto
             {
-                SessionId = SessionId.Value,
+                SessionId = SessionId.Value, // should be validated by this time
                 PlayerId = playerId,
-                Rating = Rating.Value,
+                Rating = Rating.Value, // should be validated by this time
                 Comment = Comment,
                 Timestamp = timestamp
             };
