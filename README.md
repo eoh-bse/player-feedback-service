@@ -7,6 +7,7 @@
 
 ## How to start the service locally
 * On your terminal, run `docker-compose up`
+* If you ever run into errors regarding exceeding disk space, run `docker system prune` (at your own discretion)
 
 ## How to shut down the service
 * On your terminal, run `docker-compose stop`
