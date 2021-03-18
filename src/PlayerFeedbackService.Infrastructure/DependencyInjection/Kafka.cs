@@ -43,7 +43,6 @@ namespace PlayerFeedbackService.Infrastructure.DependencyInjection
             var adminClientConfig = new AdminClientConfig
             {
                 BootstrapServers = brokerConfig.Servers,
-
             };
 
             using var adminClient = new AdminClientBuilder(adminClientConfig).Build();
